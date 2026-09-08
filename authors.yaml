@@ -1,0 +1,63 @@
+# ============================================================================
+# AUTHOR CONFIGURATION
+# ============================================================================
+# Edit this to add each author's personal site / Google Scholar / lab page
+# link. Names and order are taken verbatim from the paper -- do not reorder
+# them. Parsed by static/js/yaml-lite.js and rendered by static/js/main.js;
+# see README.md for the supported YAML subset.
+#
+# For each author:
+#   name:               exact display name as printed on the paper.
+#   url:                a personal site, lab page, or Google Scholar
+#                        profile. Leave as `null` until you have a real
+#                        URL -- the template renders `null` authors as
+#                        plain (non-clickable) text rather than invent a
+#                        destination. DO NOT put a real name on a guessed
+#                        or unrelated URL.
+#   equalContribution:   true for authors marked with * in the paper.
+#
+# The three equal-contribution authors are marked in the paper itself
+# (Griffin Farrow, Lily Sijia Li, Jack Johnson) -- do not add or remove
+# marks without checking the PDF.
+# ============================================================================
+
+authors:
+  - name: Griffin Farrow
+    url: https://scholar.google.com/citations?user=vzIaP0sAAAAJ&hl=en
+    equalContribution: true
+  - name: Lily Sijia Li
+    url: https://www.linkedin.com/in/lily-sijia-li/
+    equalContribution: true
+  - name: Jack Johnson
+    url: https://scholar.google.com/citations?user=zP48j_EAAAAJ&hl=en
+    equalContribution: true
+  - name: Tingyan Wang
+    url: https://scholar.google.com/citations?user=M4Q_9wsAAAAJ&hl=zh-CN
+    equalContribution: false
+  - name: Philip Torr
+    url: https://scholar.google.com/citations?user=kPxa2w0AAAAJ&hl=en
+    equalContribution: false
+  - name: William Bolton
+    url: https://williambolton.co.uk/
+    equalContribution: false
+  - name: Fabio J. Fehr
+    url: https://fjfehr.github.io/
+    equalContribution: false
+
+# Affiliation shown under the author list. "University of Oxford" is the
+# affiliation printed in the paper for every author -- leave that line as
+# is. groupName is the OxAI / research-group line the paper itself doesn't
+# state (confirmed as "Oxford Artificial Intelligence Society" from the
+# supplied OxAI logo assets in static/logos/) -- set to `null` to hide the
+# line entirely if that's ever not the right group to credit.
+affiliation:
+  institution: University of Oxford
+  groupName: Oxford Artificial Intelligence Society (OxAI)
+
+# Corresponding author. The paper does not designate one explicitly -- fill
+# in both fields once known. Leaving `email` set renders a working mailto:
+# link; leaving it `null` renders the bracketed placeholder text instead of
+# a fake link.
+correspondence:
+  name: Lily Sijia Li   # e.g. Fabio J. Fehr
+  email: Lilysijiali@gmail.com  # e.g. fabio.fehr@idiap.ch

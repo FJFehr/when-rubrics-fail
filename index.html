@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<!--
+============================================================================
+CONFIGURATION -- read this before editing anything else in this file.
+
+This page is a template. Almost everything you'd want to change day to
+day lives outside this HTML file, in a Markdown/YAML/JS/BibTeX file, not
+in this one:
+
+  content.md              ALL of the page's prose (TL;DR, the pull figure,
+                           key takeaways, method, taxonomy intro, results,
+                           "beyond fixed rubrics", footer note, etc.) and
+                           each figure's image/alt/position. Edit this for
+                           wording or figure changes -- no build step,
+                           just save and refresh (served over http(s);
+                           see README.md). Page order: Hero, Overview
+                           (TL;DR, pull figure, Key Takeaways -- one nav
+                           link, no "Problem" section any more), Method
+                           (folds in the Taxonomy table as a subsection),
+                           Results, Beyond Fixed Rubrics, Citation, footer.
+  authors.yaml             Author names, personal/Scholar links, the
+                           "University of Oxford" + OxAI group-affiliation
+                           line, and the corresponding-author placeholder.
+  links.yaml               arXiv / Code / Dataset links and the Open
+                           Graph image path.
+  citation.bib             The BibTeX citation block, as a real .bib file.
+  taxonomy.md              The 13 taxonomy table rows, as a standard
+                           Markdown table. Edit this like any table's
+                           content -- add/remove rows or columns freely.
+  static/js/theme.js       Title, fonts, font sizes, layout, and the
+                           light/dark colour palette -- THE file to edit
+                           to re-title or re-skin this template.
+
+This HTML file is the template/shell: layout, styling, and the elements
+each of the above gets loaded into (via `data-md="slot-name"` -- see
+static/js/content.js, which fetches content.md and fills them in; YAML/
+BibTeX files are fetched and rendered the same way by main.js; any table,
+including taxonomy.md, is rendered by the generic static/js/tables.js from
+`data-md-table="path/to/file.md"` -- see that file to add a different
+table anywhere on the page). What's left directly in this HTML file, and
+why:
+
+  - The <head> SEO / OpenGraph / Twitter / Highwire (Google Scholar)
+    meta tags below are static HTML on purpose -- citation indexers and
+    most social-card scrapers do not execute JavaScript, so these values
+    must be readable without it. If you change the title (static/js/theme.js),
+    authors (authors.yaml), or add a DOI/arXiv ID/publication date, update
+    BOTH the meta tags below AND those files so the rendered page and the
+    metadata agree. Search this file for "TODO" to find every place a
+    real value is still needed (canonical URL, OG image absolute URL,
+    citation_pdf_url once arXiv is live, citation_publication_date, DOI).
+
+  - The <h1> paper title and the nav wordmark are rendered by main.js
+    from static/js/theme.js (THEME.title), same as the rest of the page's
+    JS-rendered text -- but the title is *also* duplicated as static text
+    in the meta tags above and in citation.bib, since those must stay
+    readable without JS. Update all of them by hand together.
+
+  - Figures live in static/images/ (figure-1-blind-spot.png,
+    figure-3-pipeline.png, figure-4-cross-benchmark.png,
+    figure-6-error-types.png, og-image.png) -- exported from the paper's
+    own source assets (see README.md). Replace with new exports at the
+    same filenames to update them, or change the <img src="..."> path if
+    you rename a file.
+
+  - static/logos/ holds oxford.svg (affiliation badge), github.svg
+    (inlined with fill="currentColor" in main.js so it follows the Code
+    button's text colour), and huggingface.png. See
+    static/logos/README.md for provenance.
+
+  - The THEME TOKENS block below still declares every colour/font/size as
+    a static CSS custom property -- but those literal values are now only
+    a no-JS fallback. static/js/theme.js is the real source of truth
+    whenever JavaScript runs (applied by applyTheme(), called from the
+    THEME BOOTSTRAP script just above and from the theme-toggle handler in
+    main.js): edit values there, not here, to re-skin the page.
+
+See README.md for the full editing + local-preview + GitHub Pages guide.
+============================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Title/fonts/colours/sizes config -- see static/js/theme.js. Must load
+     before the THEME BOOTSTRAP script below, which applies it. -->
+<script src="static/js/theme.js"></script>
+
+<!-- ============================================================
+     THEME BOOTSTRAP -- must run before first paint to avoid a
+     flash of the wrong theme. Reads localStorage first, falls
+     back to the OS/browser prefers-color-scheme when the visitor
+     has never chosen explicitly. applyTheme() (static/js/theme.js)
+     then sets the CSS custom properties for that mode.
+     ============================================================ -->
+<script>
+  (function () {
+    try {
+      var stored = localStorage.getItem("theme");
+      var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+      if (typeof applyTheme === "function") applyTheme(theme);
+    } catch (e) {
+      /* localStorage/matchMedia unavailable -- default light stylesheet applies. */
+    }
+  })();
+</script>
+
+<title>When Rubrics Fail: Hallucinations Reveal Blind Spots in Medical AI Evaluation</title>
+<meta name="description" content="A clinician-validated study showing that rubric-based evaluation of medical AI often leaves clinically critical hallucinations undetected, and testing a preliminary retrieval-based complement.">
+
+<!-- TODO: set to the deployed GitHub Pages URL, e.g. https://<user>.github.io/<repo>/ -->
+<!-- <link rel="canonical" href="TODO"> -->
+
+<!-- OpenGraph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="When Rubrics Fail: Hallucinations Reveal Blind Spots in Medical AI Evaluation">
+<meta property="og:description" content="A clinician-validated study showing that rubric-based evaluation of medical AI often leaves clinically critical hallucinations undetected, and testing a preliminary retrieval-based complement.">
+<!-- TODO: OG scrapers need an absolute URL -- replace once deployed, e.g.
+     https://<user>.github.io/<repo>/static/images/og-image.png -->
+<meta property="og:image" content="static/images/og-image.png">
+<!-- TODO: set to the deployed URL once known -->
+<!-- <meta property="og:url" content="TODO"> -->
+
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="When Rubrics Fail: Hallucinations Reveal Blind Spots in Medical AI Evaluation">
+<meta name="twitter:description" content="A clinician-validated study showing that rubric-based evaluation of medical AI often leaves clinically critical hallucinations undetected, and testing a preliminary retrieval-based complement.">
+<meta name="twitter:image" content="static/images/og-image.png">
+
+<!-- Google Scholar / Highwire Press metadata -->
+<meta name="citation_title" content="When Rubrics Fail: Hallucinations Reveal Blind Spots in Medical AI Evaluation">
+<meta name="citation_author" content="Farrow, Griffin">
+<meta name="citation_author" content="Li, Lily Sijia">
+<meta name="citation_author" content="Johnson, Jack">
+<meta name="citation_author" content="Wang, Tingyan">
+<meta name="citation_author" content="Torr, Philip">
+<meta name="citation_author" content="Bolton, William">
+<meta name="citation_author" content="Fehr, Fabio J.">
+<!-- No citation_publication_date, DOI, or venue: this is an unpublished
+     preprint and the PDF's own metadata does not state one -- do not
+     invent one. Add it here once the paper is formally published. -->
+<meta name="citation_pdf_url" content="static/paper.pdf">
+<!-- TODO: set once this page has a canonical deployed URL -->
+<!-- <meta name="citation_abstract_html_url" content="TODO"> -->
+<meta name="citation_keywords" content="medical AI evaluation, hallucination detection, rubric-based grading, LLM-as-judge, clinical AI safety, retrieval-augmented factuality checking">
+
+<style>
+  /* ==========================================================
+     THEME TOKENS -- every rule below reads colours/fonts/sizes from
+     these custom properties only, but DON'T edit the values here to
+     re-skin the page: static/js/theme.js is the source of truth
+     whenever JavaScript runs (which this page already requires for
+     its content), and overwrites all of these at load time via
+     applyTheme(). The literal values below only matter as a fallback
+     for the (already heavily degraded) no-JS case.
+
+     The green / purple / orange triads are the paper's own figure
+     palette (see OXAI___Medical/main.tex): "dark" = border / large
+     bold text, "mid" = fill tone, "light" = background tint,
+     "text" = a darkened variant used for small body text so it
+     still clears WCAG AA (4.5:1) on the warm background -- a few
+     of the paper's raw "dark" values fall just short at body-text
+     size, so don't swap `--*-text` for `--*-dark` without
+     rechecking contrast.
+     ========================================================== */
+  :root {
+    /* Light theme (default) */
+    --color-bg: #F5F0E6;
+    --color-surface: #FBF7EF;
+    --color-text: #2A2521;
+    --color-text-muted: #6E6759;
+    --color-border: #DED4C0;
+    --color-rule: #C9BC9E;
+
+    --green-dark: #328132;
+    --green-mid: #61CA53;
+    --green-light: #DCF5DC;
+    --green-text: #256025;
+
+    --purple-dark: #75639B;
+    --purple-mid: #B7A9D6;
+    --purple-light: #EEEAF5;
+    --purple-text: #5F5085;
+
+    --orange-dark: #D98A45;
+    --orange-mid: #F1C38F;
+    --orange-light: #FBF1E6;
+    --orange-text: #8C4E1C;
+
+    --color-link: var(--green-text);
+    --color-link-hover: #16350F;
+    --color-focus: var(--green-text);
+
+    --font-serif: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+
+    --content-width: 900px;
+    /* Shared width for body paragraphs and their figures, so a figure
+       never reads wider than the text around it. Both get centred at
+       this width inside the wider --content-width wrap. */
+    --prose-width: 700px;
+    --radius: 10px;
+    --radius-pill: 999px;
+  }
+
+  [data-theme="dark"] {
+    --color-bg: #1E1A16;
+    --color-surface: #28231E;
+    --color-text: #EDE6D8;
+    --color-text-muted: #A79C8A;
+    --color-border: #3A332B;
+    --color-rule: #453D33;
+
+    /* Dark mode reuses the paper's brighter "mid" tones for both borders
+       and text (they already clear AA on the dark background), and swaps
+       the pastel "light" tints for desaturated dark equivalents rather
+       than the literal light-theme hex values, which would be jarring
+       here. */
+    --green-dark: #61CA53;
+    --green-mid: #61CA53;
+    --green-light: #26301F;
+    /* Muted on purpose: the paper's raw green (or a lightened version of
+       it) reads as neon at link/author-name text size on a dark ground,
+       even though it clears contrast. This desaturated sage still clears
+       AA (5.4:1 on the page background) without the glare. */
+    --green-text: #6E9C64;
+
+    --purple-dark: #B7A9D6;
+    --purple-mid: #B7A9D6;
+    --purple-light: #2A2733;
+    --purple-text: #C6BADF;
+
+    --orange-dark: #D98A45;
+    --orange-mid: #F1C38F;
+    --orange-light: #332822;
+    --orange-text: #E2A468;
+
+    --color-link: var(--green-text);
+    --color-link-hover: #86B77B;
+    --color-focus: var(--green-text);
+  }
+
+  /* ========================================================== */
+
+  * { box-sizing: border-box; }
+
+  html {
+    background: var(--color-bg);
+    /* Reserves room for the sticky header (see header.site-header below)
+       so a jump to a section/heading doesn't land it partly underneath
+       the header. --header-height is measured and kept live by
+       updateHeaderHeightVar() in main.js (it changes if the header wraps
+       to two rows on narrow screens); the fallback is a same-origin no-JS
+       guess at its single-row height. Respected by both scrollIntoView()
+       (our own click handler, static/js/main.js) and the browser's native
+       #anchor jump (e.g. a direct link, or with JS disabled). */
+    scroll-padding-top: var(--header-height, 64px);
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-body, 17px);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; height: auto; display: block; }
+
+  /* Justify body prose so paragraph edges line up with the figures
+     above/below them, rather than reading narrower on the right due to
+     left-aligned ragged text. Applies only to actual paragraphs of prose
+     (not short centred lines like the correspondence line or one-line
+     captions), and pairs with hyphens so justification doesn't open up
+     large gaps at this column width. */
+  .prose, .tldr p, figcaption, .implications li, .caveat, .stat-callout {
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  /* Every block of body prose is capped at --prose-width and centred,
+     so it never reads narrower (or, for figures, wider) than the other
+     prose/figures around it -- one consistent column width throughout,
+     inside the wider --content-width page wrap. */
+  .prose, .implications ol, .caveat {
+    max-width: var(--prose-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* content.js renders content.md into these containers as one or more
+     <p> tags (see static/js/content.js). Reset the browser's default <p>
+     margin so a single paragraph sits flush like the old static markup
+     did; multi-paragraph content still gets sensible spacing between
+     paragraphs via the non-last-child margin below. */
+  .tldr p, .prose p, figcaption p, .stat-callout p, .caveat p, .bibtex-note p,
+  .takeaway p {
+    margin: 0 0 1em;
+  }
+  .tldr p:last-child, .prose p:last-child, figcaption p:last-child,
+  .stat-callout p:last-child, .caveat p:last-child, .bibtex-note p:last-child,
+  .takeaway p:last-child {
+    margin-bottom: 0;
+  }
+
+  a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: var(--color-link-hover); }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--color-surface);
+    color: var(--color-text);
+    padding: 0.75em 1em;
+    z-index: 100;
+    border: 1px solid var(--color-border);
+    border-radius: 0 0 var(--radius) 0;
+  }
+  .skip-link:focus { left: 0; top: 0; }
+
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 0.5em;
+    text-align: center;
+  }
+  /* Every top-level section title (Overview's pull-figure heading, Key
+     Takeaways, Method, Results, Beyond Fixed Rubrics, Citation) shares one
+     "main heading" size, so a reader scanning down the page sees one
+     consistent heading level -- not the browser's smaller h2 default some
+     of these used to fall back to. */
+  h2 {
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  }
+
+  .wrap {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 24px;
+    /* Establishes a new block-formatting context so a floated figure
+       (.fig-left/.fig-right, see "Figure placement" below) is contained
+       within its own section's height instead of collapsing it. */
+    display: flow-root;
+  }
+
+  section { padding: 56px 0; border-top: 1px solid var(--color-border); }
+  section:first-of-type { border-top: none; }
+
+  /* TL;DR, the Problem figure, and Key Takeaways read as one continuous
+     "Overview" section (see nav -- one Overview link, not one per part) --
+     no divider line or doubled-up padding between them, even though the
+     latter two keep their own <section> id for anchor/landmark purposes. */
+  #overview, #problem, #takeaways { border-top: none; padding-top: 0; }
+
+  /* ---------- Scroll progress bar ---------- */
+  #scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--green-dark);
+    z-index: 60;
+  }
+
+  /* ---------- Sticky nav ---------- */
+  header.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .wordmark {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--color-text);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  #site-nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  #site-nav a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.92rem;
+  }
+  #site-nav a:hover { color: var(--color-text); }
+  #site-nav a[aria-current="true"] { color: var(--color-text); border-bottom: 1px solid var(--green-dark); }
+
+  #theme-toggle {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-text);
+  }
+  #theme-toggle:hover { border-color: var(--color-text-muted); }
+
+  /* ---------- Hero (centred) ---------- */
+  /* padding-bottom trimmed well below the generic section's 56px -- Hero
+     flows straight into Overview (TL;DR right after), which itself has no
+     top padding (see #overview, #problem, #takeaways above), so the full
+     56px would otherwise show up as one large, unintentional-looking gap
+     before the TL;DR box. */
+  .hero { padding-top: 64px; padding-bottom: 24px; text-align: center; }
+  .hero h1 {
+    font-size: var(--font-size-hero-title, clamp(1.7rem, 3.4vw, 2.5rem));
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #author-list {
+    list-style: none;
+    margin: 1.4em 0 0.6em;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    column-gap: 0.3em;
+    font-size: 1.02rem;
+  }
+  #author-list .author-sep { margin-right: 0.35em; color: var(--color-text-muted); }
+  #author-list a { font-weight: 600; }
+  .author-noLink { font-weight: 600; color: var(--color-text); }
+  #equal-contribution-note {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin: 0 0 1em;
+  }
+
+  /* Affiliation is logos only -- no visible institution text (see
+     affiliation in authors.yaml for the accessible names applied as
+     alt text). */
+  .affiliation-block {
+    margin-bottom: 0.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .oxford-logo { width: 76px; height: 76px; border-radius: 12px; flex: none; }
+  #oxai-logo-wrap { display: inline-flex; align-items: center; }
+  .oxai-logo { width: 76px; height: 76px; flex: none; }
+  /* Two pre-rendered colour variants of the OxAI mark; CSS picks the one
+     that reads correctly against the current theme's background. */
+  [data-theme="dark"] .theme-only-light { display: none; }
+  .theme-only-dark { display: none; }
+  [data-theme="dark"] .theme-only-dark { display: inline-block; }
+
+  .correspondence { font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.6em; }
+  .correspondence a { color: var(--color-link); }
+  /* No email configured yet -- main.js removes href, so style it back to
+     plain muted text rather than an inert-but-link-coloured placeholder. */
+  .correspondence a:not([href]) { color: var(--color-text-muted); text-decoration: none; cursor: default; }
+
+  /* ---------- Resource buttons ---------- */
+  #resource-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 1.8em 0 0;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border: 1px solid var(--color-text);
+    border-radius: var(--radius-pill);
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--font-sans);
+  }
+  /* All four resource buttons (arXiv / Code / Dataset / Cite) highlight in
+     the page's green accent. */
+  .btn:hover {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+    color: var(--color-bg);
+  }
+  .btn-icon { width: 16px; height: 16px; flex: none; }
+  /* arXiv's mark is a wordmark, not a square icon. */
+  .btn-icon-arxiv { width: auto; height: 15px; }
+  /* Standard "sr-only" pattern: keeps a label in the accessibility tree
+     (e.g. the arXiv button, which shows only its logo) without showing
+     it visually. */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .btn-disabled {
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
+    cursor: default;
+  }
+  /* Keeps a link-less button inert on hover -- must stay after .btn:hover
+     (same specificity, so source order decides), and reset border-color
+     too now that .btn:hover sets it. */
+  .btn-disabled:hover {
+    background: none;
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
+  }
+  .btn-cite { border-color: var(--green-dark); color: var(--green-text); }
+  .btn-cite:hover { background: var(--green-dark); color: var(--color-bg); }
+
+  /* ---------- TL;DR ---------- */
+  .tldr {
+    background: var(--green-light);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    /* Same column width as every other block of prose/figures on the
+       page (see --prose-width note above) -- previously filled the
+       full --content-width wrap and read wider than everything below
+       it. */
+    max-width: var(--prose-width);
+    margin: 16px auto 0;
+    font-size: 1.02rem;
+  }
+  .tldr strong { font-family: var(--font-serif); }
+
+  /* ---------- Hero result ---------- */
+  .hero-result { text-align: center; }
+  .hero-result h2 {
+    max-width: var(--prose-width);
+    margin: 0 auto 0.7em;
+  }
+  /* Figures share --prose-width with the body text and are centred at
+     that width, rather than stretching to the full wrap and reading
+     wider than the paragraphs around them (figcaption has no width of
+     its own -- it simply fills its now-constrained <figure> parent). */
+  .hero-result figure { max-width: var(--prose-width); margin: 2em auto 0.8em; }
+  .hero-result figcaption {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+  }
+  figure img { border-radius: 20px; }
+
+  /* ---------- Figure placement (content.md "position: left/right") ----------
+     Default (no position, or "center") is the centred layout set by each
+     section's own figure rule above/below (.hero-result figure,
+     .finding figure, #method figure). These two classes -- toggled by
+     static/js/content.js from an image slot's optional "position:" line --
+     override that with a floated figure so body text wraps beside it,
+     across all three contexts (hence repeating the selector per section:
+     #method's own rule is ID-scoped, so a plain ".fig-left" class rule
+     wouldn't out-specificity it). */
+  .hero-result figure.fig-left, .finding figure.fig-left, #method figure.fig-left,
+  .hero-result figure.fig-right, .finding figure.fig-right, #method figure.fig-right {
+    max-width: 45%;
+  }
+  .hero-result figure.fig-left, .finding figure.fig-left, #method figure.fig-left {
+    float: left;
+    margin: 0.3em 24px 1em 0;
+  }
+  .hero-result figure.fig-right, .finding figure.fig-right, #method figure.fig-right {
+    float: right;
+    margin: 0.3em 0 1em 24px;
+  }
+  /* Below ~600px there's no room for text to wrap beside a 45%-wide
+     figure -- fall back to the default centred, full-width layout. */
+  @media (max-width: 600px) {
+    figure.fig-left, figure.fig-right {
+      float: none;
+      max-width: var(--prose-width);
+      margin: 1.4em auto;
+    }
+  }
+
+  /* ---------- Key Takeaways ---------- */
+  /* One under another, not side by side -- same column width as the rest
+     of the page's prose/figures/table (see --prose-width note above). */
+  .takeaways-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: var(--prose-width);
+    margin: 0 auto;
+  }
+  .takeaway {
+    display: block;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    font-size: 0.98rem;
+    /* It's a link (to the matching Results finding) -- reset the default
+       <a> look so it still reads as a card, not a text link. */
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .takeaway:hover, .takeaway:focus-visible {
+    background: var(--green-light);
+    border-color: var(--green-dark);
+  }
+  /* The bold lead-in sentence is coloured but stays in the card's own body
+     font -- unlike .tldr strong / .stat-callout strong, which switch to
+     serif. */
+  .takeaway strong { color: var(--green-text); }
+  /* ---------- Findings ---------- */
+  /* No divider rules between findings -- whitespace and the numbered
+     headings separate them. Own block-formatting context (see .wrap
+     above) so a floated figure in one finding can't bleed into the
+     next finding's heading. */
+  .finding { padding: 40px 0; display: flow-root; }
+  .finding:first-of-type { padding-top: 0; }
+  /* Each result's own title -- scales with the viewport like the section
+     h2 above it does, but from a slightly lower ceiling so the section
+     heading still reads as the level above it. */
+  .finding h3 {
+    font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+    max-width: var(--prose-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .finding figure { max-width: var(--prose-width); margin: 1.4em auto; }
+  .finding figcaption { font-size: 0.85rem; color: var(--color-text-muted); margin-top: 0.5em; }
+  /* Highlighted pull-out box. Currently unused -- the one finding that had
+     one has been removed -- but kept as a reusable piece of this template:
+     add <div class="stat-callout" data-md="some-slot"></div> anywhere and
+     give it a matching block in content.md. */
+  .stat-callout {
+    display: block;
+    /* Same column width as the prose paragraph above it (see the
+       --prose-width note) rather than the full .wrap width. */
+    max-width: var(--prose-width);
+    margin: 0.8em auto 0;
+    padding: 10px 16px;
+    background: var(--purple-light);
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+  }
+  .stat-callout strong { font-family: var(--font-serif); color: var(--purple-text); }
+
+  /* ---------- Method ---------- */
+  /* Taxonomy / Pipeline / Clinical Review subsection labels. Sized clearly
+     above body text (they read as bold body copy at ~1.1rem) but well below
+     .finding h3, so the page keeps three distinct heading levels: section
+     h2 > result title > method subsection. */
+  #method h3 {
+    font-size: 1.25rem;
+    max-width: var(--prose-width);
+    margin: 2.2em auto 0.6em;
+  }
+  #method figure { max-width: var(--prose-width); margin: 1.6em auto; }
+  #method figcaption { font-size: 0.85rem; color: var(--color-text-muted); margin-top: 0.5em; }
+
+  /* ---------- Markdown tables (static/js/tables.js) ----------
+     Generic styling for ANY table rendered by tables.js from a Markdown
+     file -- not specific to the taxonomy table. A new table anywhere on
+     the page automatically gets this look; nothing to add per-table. */
+  .table-scroll {
+    overflow-x: auto;
+    /* Same column width as every other block of prose/figures on the page
+       (see --prose-width note above) -- previously unconstrained, so it
+       filled the full --content-width wrap and read wider than the text
+       around it. Still scrolls internally if a table needs more room than
+       that on narrow screens. */
+    max-width: var(--prose-width);
+    margin: 1.6em auto 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+  .md-table {
+    width: 100%;
+    min-width: 480px;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    /* Fixed layout so the column widths below (percentages, keyed off the
+       header row) are actually enforced -- under the default "auto"
+       layout, a wide unwrapped cell can still stretch its column past a
+       given width. Needed for the first column to stay narrow and wrap
+       instead of forcing the whole table wide. */
+    table-layout: fixed;
+  }
+  .md-table th,
+  .md-table td {
+    text-align: left;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+    line-height: 1.5;
+    /* Column 1 (the row's label/term) stays compact rather than sizing to
+       its longest entry; column 3, where present, gets a bit less than
+       column 2 (its body-text description) -- reasonable proportions for
+       a 3-column table generally, not tuned to the taxonomy table's exact
+       column count (see tables.js). A 2-column table simply ignores the
+       nth-child(3) rule. */
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  .md-table th:nth-child(1), .md-table td:nth-child(1) { width: 26%; }
+  .md-table th:nth-child(3), .md-table td:nth-child(3) { width: 32%; }
+  .md-table thead th {
+    background: var(--color-surface);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    /* Same tone as the emphasised phrases inside the table (.md-table em
+       below), so the header rule and the in-cell emphasis read as one
+       accent rather than two unrelated colours. */
+    border-bottom: 2px solid var(--orange-text);
+  }
+  /* Zebra striping: a shade darker than the page background rather than a
+     colour tint, so a table reads as its own component without pulling in
+     an accent colour that doesn't mean anything here. Derived from the
+     existing border tone rather than a new token -- adapts with the
+     theme/dark mode automatically. */
+  .md-table tbody tr:nth-child(even) { background: color-mix(in srgb, var(--color-bg), var(--color-border) 55%); }
+  .md-table tbody tr:last-child td { border-bottom: none; }
+  /* First column reads as the row's label/term -- a reasonable default
+     for most tables (see tables.js). Wraps (see overflow-wrap above)
+     rather than forcing the column wide to fit unbroken. */
+  .md-table td.md-table-key { font-weight: 600; font-family: var(--font-serif); }
+  /* Inline emphasis inside any cell: *italic* is a key/erroneous phrase
+     (in the accent colour also used for "critical error" emphasis
+     elsewhere on the page), ~~strikethrough~~ is a superseded/incorrect
+     value struck through and muted. */
+  .md-table em { font-style: italic; color: var(--orange-text); }
+  .md-table s { color: var(--color-text-muted); }
+  /* Below ~600px there's no room for 3 columns -- drop the 3rd (in the
+     taxonomy table, "Example") entirely rather than shrinking every
+     column to the point of being unreadable; column 1 gets a little more
+     room since it's now the only "compact" column doing wrapping work. */
+  @media (max-width: 600px) {
+    .md-table { min-width: 0; }
+    .md-table th:nth-child(3), .md-table td:nth-child(3) { display: none; }
+    .md-table th:nth-child(1), .md-table td:nth-child(1) { width: 34%; }
+    .md-table th, .md-table td { padding: 10px 12px; font-size: 0.88rem; }
+  }
+
+  /* ---------- Implications ---------- */
+  .implications ol {
+    padding-left: 1.2em;
+    max-width: 720px;
+  }
+  .implications li { margin-bottom: 1em; }
+  .caveat {
+    margin-top: 1.6em;
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    max-width: 720px;
+  }
+
+  /* ---------- Citation ---------- */
+  /* Same column width as every other block on the page (prose, figures,
+     the takeaway cards, the taxonomy table) -- it otherwise filled the
+     wider --content-width wrap and read broader than everything above it.
+     position: relative anchors the absolutely-positioned copy button, so
+     capping the width here keeps that button on the box's own corner. */
+  .cite-block {
+    position: relative;
+    margin: 1.4em auto 0;
+    max-width: var(--prose-width);
+  }
+  #bibtex-block {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 20px;
+    padding-top: 44px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    white-space: pre;
+    margin: 0;
+  }
+  #copy-bibtex-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+  #copy-bibtex-btn.copied { border-color: var(--green-dark); color: var(--green-text); }
+  .bibtex-note {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    max-width: var(--prose-width);
+    margin: 0.6em auto 0;
+  }
+
+  /* ---------- Footer ---------- */
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    padding: 24px 0 40px;
+  }
+  .site-footer .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+  .site-footer p { margin: 0; }
+  .site-footer a { color: var(--color-text-muted); }
+  .site-footer a:hover { color: var(--color-link); }
+
+  noscript .noscript-banner {
+    display: block;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 12px 24px;
+    font-size: 0.88rem;
+    text-align: center;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 768px) {
+    section { padding: 40px 0; }
+    .nav-inner { flex-wrap: wrap; row-gap: 10px; justify-content: center; }
+    #site-nav { gap: 14px; }
+  }
+  @media (max-width: 480px) {
+    body { font-size: var(--font-size-body-mobile, 16px); }
+    .hero { padding-top: 40px; }
+    #resource-buttons { gap: 8px; }
+  }
+
+  /* ---------- Reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { scroll-behavior: auto !important; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<noscript>
+  <div class="noscript-banner">
+    JavaScript is off, so the page's text, author links, resource buttons,
+    the taxonomy table, and the BibTeX block below won't render. The paper
+    is still available directly at <a href="static/paper.pdf">static/paper.pdf</a>.
+  </div>
+</noscript>
+
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="nav-inner">
+    <a class="wordmark" id="wordmark" href="#top"></a>
+    <nav id="site-nav" aria-label="Section">
+      <a href="#overview">Overview</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#cite">Cite</a>
+      <button id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">☾</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================== HERO ============================== -->
+  <section id="top" class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <!-- Rendered from static/js/theme.js (THEME.title) by main.js -->
+      <h1 id="hero-title"></h1>
+
+      <!-- Rendered from authors.yaml by main.js -->
+      <ul id="author-list" aria-label="Authors"></ul>
+      <p id="equal-contribution-note">* Equal contribution</p>
+
+      <p class="correspondence">
+        Correspondence: <span id="correspondence-name">[CORRESPONDING AUTHOR]</span>,
+        <a id="correspondence-email" href="#">[EMAIL]</a>
+      </p>
+
+      <!-- Logos only, no institution text -- alt text (set from
+           authors.yaml's affiliation) carries the names for
+           screen readers. -->
+      <p class="affiliation-block">
+        <img class="oxford-logo" id="oxford-logo" src="static/logos/oxford.svg" alt="University of Oxford">
+        <span id="oxai-logo-wrap" hidden>
+          <img class="oxai-logo theme-only-light" src="static/logos/oxai_logo_final_black.png" alt="">
+          <img class="oxai-logo theme-only-dark" src="static/logos/oxai_logo_final.png" alt="">
+        </span>
+      </p>
+
+      <!-- Rendered from links.yaml by main.js -->
+      <div id="resource-buttons" aria-label="Paper resources"></div>
+    </div>
+  </section>
+
+  <!-- ============================== OVERVIEW ==============================
+       TL;DR, the pull figure below, and Key Takeaways read as one
+       continuous "Overview" -- the nav has a single Overview link, not one
+       per part (see the border/padding reset for #overview, #problem,
+       #takeaways in the CSS above). This first part is the TL;DR itself. -->
+  <section id="overview" data-section-group="overview" aria-label="Overview">
+    <div class="wrap">
+      <!-- Text from content.md (slot: tldr) via static/js/content.js -->
+      <div class="tldr" data-md="tldr"></div>
+    </div>
+  </section>
+
+  <!-- ============================== OVERVIEW: PULL FIGURE ============================== -->
+  <section id="problem" data-section-group="overview" class="hero-result" aria-labelledby="problem-title">
+    <div class="wrap">
+      <h2 id="problem-title" data-md="problem-title"></h2>
+
+      <figure>
+        <img data-md-img="problem-image"
+             src="static/images/figure-1-blind-spot.png"
+             alt="Diagram: a safe answer and a hallucinated answer both flow through the same rubric evaluation, the same LLM grader, and produce the same score, leaving clinician trust in question.">
+        <figcaption data-md="problem-caption"></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================== OVERVIEW: KEY TAKEAWAYS ============================== -->
+  <!-- Three scannable boxes, no figures -- a reader who stops here still has
+       the paper's shape. Each box is a link to the Results section's
+       matching finding, and leads with the same bold sentence as that
+       finding's title (see content.md's takeaway-N slots), so a reader can
+       jump straight to that finding's evidence. -->
+  <section id="takeaways" data-section-group="overview" aria-labelledby="takeaways-title">
+    <div class="wrap">
+      <h2 id="takeaways-title" data-md="takeaways-title"></h2>
+      <div class="takeaways-grid">
+        <a class="takeaway" href="#finding-1-title" data-md="takeaway-1"></a>
+        <a class="takeaway" href="#finding-2-title" data-md="takeaway-2"></a>
+        <a class="takeaway" href="#finding-3-title" data-md="takeaway-3"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== METHOD ============================== -->
+  <!-- Three subsections -- Taxonomy, Pipeline, Validation -- each an <h3>
+       inside this one section rather than separate top-level sections. -->
+  <section id="method" data-section-group="method" aria-labelledby="method-title">
+    <div class="wrap">
+      <h2 id="method-title" data-md="method-title"></h2>
+      <div class="prose" data-md="method-intro"></div>
+
+      <h3 id="taxonomy-title" data-md="taxonomy-title"></h3>
+      <div class="prose" data-md="taxonomy-intro"></div>
+      <!-- Rendered from taxonomy.md by static/js/tables.js -- a generic
+           Markdown-table loader, not specific to this table. -->
+      <div class="table-scroll">
+        <table data-md-table="taxonomy.md"></table>
+      </div>
+
+      <h3 id="method-pipeline-title" data-md="method-pipeline-title"></h3>
+      <figure>
+        <img data-md-img="method-image"
+             src="static/images/figure-3-pipeline.png"
+             alt="Pipeline diagram: a question, answer, and taxonomy pass through two models that check applicability, then an error-generation model injects an error, followed by a programmatic and LLM quality check with a rejection loop back to error generation, and finally clinician review.">
+        <figcaption data-md="method-figcaption"></figcaption>
+      </figure>
+      <div class="prose" data-md="method-pipeline-body"></div>
+
+      <h3 id="method-validation-title" data-md="method-validation-title"></h3>
+      <div class="prose" data-md="method-closing"></div>
+    </div>
+  </section>
+
+  <!-- ============================== RESULTS ============================== -->
+  <!-- Unpacks the three Key Takeaways boxes above with evidence. -->
+  <section id="results" data-section-group="results" aria-labelledby="results-title">
+    <div class="wrap">
+      <h2 id="results-title" data-md="results-title"></h2>
+
+      <article class="finding" aria-labelledby="finding-1-title">
+        <h3 id="finding-1-title" data-md="finding-1-title"></h3>
+        <figure>
+          <img data-md-img="finding-1-image"
+               src="static/images/figure-4-cross-benchmark.png"
+               alt="Stacked bar chart across HealthBench, LiveMedBench, and HealthBench Professional showing the share of matched answer pairs where the rubric favoured the correct answer, tied, or favoured the error-injected answer. Ties dominate on all three benchmarks.">
+          <figcaption data-md="finding-1-caption"></figcaption>
+        </figure>
+        <div class="prose" data-md="finding-1-body"></div>
+      </article>
+
+      <article class="finding" aria-labelledby="finding-2-title">
+        <h3 id="finding-2-title" data-md="finding-2-title"></h3>
+        <figure>
+          <img data-md-img="finding-2-image"
+               src="static/images/figure-6-error-types.png"
+               alt="Stacked bar chart showing rubric discrimination on HealthBench by error type, ordered from Under-Triage (73% correctly favoured) down to Failure to Seek Info (0% correctly favoured, mostly ties and losses).">
+          <figcaption data-md="finding-2-caption"></figcaption>
+        </figure>
+        <div class="prose" data-md="finding-2-body"></div>
+      </article>
+
+      <article class="finding" aria-labelledby="finding-3-title">
+        <h3 id="finding-3-title" data-md="finding-3-title"></h3>
+        <div class="prose" data-md="finding-3-body"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================== BEYOND FIXED RUBRICS ============================== -->
+  <!-- Forward-looking close, not a generic conclusion -- class stays
+       "implications" internally (CSS/no visible difference) though the
+       heading text (content.md) now reads "Beyond Fixed Rubrics". -->
+  <section id="beyond" data-section-group="beyond" class="implications" aria-labelledby="implications-title">
+    <div class="wrap">
+      <h2 id="implications-title" data-md="implications-title"></h2>
+      <ol data-md="implications-list"></ol>
+    </div>
+  </section>
+
+  <!-- ============================== CITATION ============================== -->
+  <section id="cite" data-section-group="cite" aria-labelledby="cite-title">
+    <div class="wrap">
+      <h2 id="cite-title" data-md="cite-title"></h2>
+      <div class="cite-block">
+        <button id="copy-bibtex-btn" class="btn" type="button">Copy BibTeX</button>
+        <pre id="bibtex-block"><!-- populated from citation.bib --></pre>
+      </div>
+      <div class="bibtex-note" data-md="bibtex-note"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div data-md="footer-note"></div>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="static/js/yaml-lite.js"></script>
+<script src="static/js/content.js"></script>
+<script src="static/js/tables.js"></script>
+<script src="static/js/main.js"></script>
+</body>
+</html>

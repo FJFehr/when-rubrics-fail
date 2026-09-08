@@ -1,0 +1,265 @@
+{\small
+\begin{longtable}{l c c c c c}
+    \toprule
+    \textbf{Error Type} & \textbf{Win \%} & \textbf{Tie \%} & \textbf{Loss \%} & \textbf{Paired AUROC} & \textbf{$N$} \\
+    \midrule
+    \endfirsthead
+    \multicolumn{6}{l}{\textit{Table \thetable\ continued}} \\
+    \toprule
+    \textbf{Error Type} & \textbf{Win \%} & \textbf{Tie \%} & \textbf{Loss \%} & \textbf{Paired AUROC} & \textbf{$N$} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{6}{r}{\textit{Continued on next page}} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+
+    \multicolumn{6}{l}{\textbf{HealthBench}} \\
+    \midrule
+    Under-Triage &
+        \makecell{72.8 \\ \footnotesize{[60.0, 83.6]}} &
+        \makecell{23.6 \\ \footnotesize{[12.7, 34.5]}} &
+        \makecell{3.7 \\ \footnotesize{[0.0, 9.1]}} &
+        \makecell{0.846 \\ \footnotesize{[0.773, 0.909]}} &
+        55 \\
+    Treatment Error &
+        \makecell{60.5 \\ \footnotesize{[54.1, 66.5]}} &
+        \makecell{34.0 \\ \footnotesize{[27.9, 40.3]}} &
+        \makecell{5.6 \\ \footnotesize{[3.0, 8.6]}} &
+        \makecell{0.774 \\ \footnotesize{[0.736, 0.813]}} &
+        233 \\
+    Missed Contraindication &
+        \makecell{56.7 \\ \footnotesize{[43.2, 70.5]}} &
+        \makecell{38.7 \\ \footnotesize{[25.0, 52.3]}} &
+        \makecell{4.6 \\ \footnotesize{[0.0, 11.4]}} &
+        \makecell{0.761 \\ \footnotesize{[0.670, 0.841]}} &
+        44 \\
+    Over-Triage &
+        \makecell{46.6 \\ \footnotesize{[36.9, 56.3]}} &
+        \makecell{41.8 \\ \footnotesize{[32.0, 51.5]}} &
+        \makecell{11.6 \\ \footnotesize{[5.8, 18.4]}} &
+        \makecell{0.675 \\ \footnotesize{[0.607, 0.738]}} &
+        103 \\
+    Omission &
+        \makecell{33.6 \\ \footnotesize{[27.4, 39.8]}} &
+        \makecell{55.8 \\ \footnotesize{[49.1, 62.4]}} &
+        \makecell{10.6 \\ \footnotesize{[6.6, 14.6]}} &
+        \makecell{0.615 \\ \footnotesize{[0.573, 0.655]}} &
+        226 \\
+    Wrong Diagnosis &
+        \makecell{31.3 \\ \footnotesize{[22.9, 39.8]}} &
+        \makecell{56.0 \\ \footnotesize{[46.6, 64.4]}} &
+        \makecell{12.7 \\ \footnotesize{[6.8, 18.6]}} &
+        \makecell{0.593 \\ \footnotesize{[0.534, 0.648]}} &
+        118 \\
+    Overgeneralisation &
+        \makecell{20.3 \\ \footnotesize{[15.2, 26.1]}} &
+        \makecell{69.7 \\ \footnotesize{[63.5, 75.8]}} &
+        \makecell{9.9 \\ \footnotesize{[6.2, 14.2]}} &
+        \makecell{0.552 \\ \footnotesize{[0.517, 0.588]}} &
+        211 \\
+    Dosage Error &
+        \makecell{19.9 \\ \footnotesize{[13.7, 26.7]}} &
+        \makecell{68.5 \\ \footnotesize{[61.0, 76.0]}} &
+        \makecell{11.6 \\ \footnotesize{[6.8, 17.1]}} &
+        \makecell{0.541 \\ \footnotesize{[0.497, 0.586]}} &
+        146 \\
+    Overconfidence &
+        \makecell{17.8 \\ \footnotesize{[9.6, 27.4]}} &
+        \makecell{72.6 \\ \footnotesize{[61.6, 82.2]}} &
+        \makecell{9.6 \\ \footnotesize{[2.7, 16.4]}} &
+        \makecell{0.541 \\ \footnotesize{[0.479, 0.603]}} &
+        73 \\
+    Additional Diagnosis &
+        \makecell{19.0 \\ \footnotesize{[7.1, 31.0]}} &
+        \makecell{66.8 \\ \footnotesize{[52.4, 81.0]}} &
+        \makecell{14.2 \\ \footnotesize{[4.8, 26.2]}} &
+        \makecell{0.524 \\ \footnotesize{[0.440, 0.607]}} &
+        42 \\
+    Threshold Error &
+        \makecell{15.8 \\ \footnotesize{[11.4, 20.6]}} &
+        \makecell{71.9 \\ \footnotesize{[65.8, 77.6]}} &
+        \makecell{12.3 \\ \footnotesize{[8.3, 16.7]}} &
+        \makecell{0.518 \\ \footnotesize{[0.485, 0.553]}} &
+        228 \\
+    Evidence Fabrication &
+        \makecell{18.8 \\ \footnotesize{[15.1, 22.5]}} &
+        \makecell{65.6 \\ \footnotesize{[61.2, 70.0]}} &
+        \makecell{15.6 \\ \footnotesize{[12.2, 19.0]}} &
+        \makecell{0.516 \\ \footnotesize{[0.489, 0.542]}} &
+        436 \\
+    Failure to seek info$^{*}$ &
+        \makecell{0.0 \\ \footnotesize{[0.0, 0.0]}} &
+        \makecell{67.0 \\ \footnotesize{[33.3, 100.0]}} &
+        \makecell{33.0 \\ \footnotesize{[0.0, 66.7]}} &
+        \makecell{0.335 \\ \footnotesize{[0.167, 0.500]}} &
+        6 \\
+    \midrule
+
+    \multicolumn{6}{l}{\textbf{LiveMedBench}} \\
+    \midrule
+    Under-Triage &
+        \makecell{35.9 \\ \footnotesize{[25.6, 46.2]}} &
+        \makecell{64.1 \\ \footnotesize{[53.8, 74.4]}} &
+        \makecell{0.0 \\ \footnotesize{[0.0, 0.0]}} &
+        \makecell{0.680 \\ \footnotesize{[0.628, 0.731]}} &
+        78 \\
+    Treatment Error &
+        \makecell{38.0 \\ \footnotesize{[32.2, 43.8]}} &
+        \makecell{56.9 \\ \footnotesize{[51.1, 62.7]}} &
+        \makecell{5.0 \\ \footnotesize{[2.5, 7.6]}} &
+        \makecell{0.665 \\ \footnotesize{[0.632, 0.697]}} &
+        276 \\
+    Missed Contraindication &
+        \makecell{22.7 \\ \footnotesize{[15.9, 30.3]}} &
+        \makecell{70.4 \\ \footnotesize{[62.1, 78.0]}} &
+        \makecell{6.8 \\ \footnotesize{[3.0, 11.4]}} &
+        \makecell{0.580 \\ \footnotesize{[0.534, 0.625]}} &
+        132 \\
+    Over-Triage &
+        \makecell{24.2 \\ \footnotesize{[15.4, 33.0]}} &
+        \makecell{66.9 \\ \footnotesize{[57.1, 75.8]}} &
+        \makecell{8.8 \\ \footnotesize{[3.3, 15.4]}} &
+        \makecell{0.577 \\ \footnotesize{[0.522, 0.632]}} &
+        91 \\
+    Omission &
+        \makecell{16.9 \\ \footnotesize{[12.2, 21.9]}} &
+        \makecell{76.4 \\ \footnotesize{[70.9, 81.9]}} &
+        \makecell{6.7 \\ \footnotesize{[3.8, 10.1]}} &
+        \makecell{0.551 \\ \footnotesize{[0.521, 0.582]}} &
+        237 \\
+    Wrong Diagnosis &
+        \makecell{23.8 \\ \footnotesize{[16.8, 30.8]}} &
+        \makecell{70.6 \\ \footnotesize{[62.9, 78.3]}} &
+        \makecell{5.6 \\ \footnotesize{[2.1, 9.8]}} &
+        \makecell{0.591 \\ \footnotesize{[0.549, 0.633]}} &
+        143 \\
+    Overgeneralisation &
+        \makecell{9.1 \\ \footnotesize{[6.0, 12.2]}} &
+        \makecell{83.1 \\ \footnotesize{[79.0, 87.1]}} &
+        \makecell{7.8 \\ \footnotesize{[5.0, 11.0]}} &
+        \makecell{0.506 \\ \footnotesize{[0.484, 0.528]}} &
+        319 \\
+    Dosage Error &
+        \makecell{8.9 \\ \footnotesize{[5.7, 12.6]}} &
+        \makecell{84.6 \\ \footnotesize{[80.2, 89.1]}} &
+        \makecell{6.5 \\ \footnotesize{[3.6, 9.7]}} &
+        \makecell{0.512 \\ \footnotesize{[0.488, 0.536]}} &
+        247 \\
+    Overconfidence &
+        \makecell{9.3 \\ \footnotesize{[5.3, 14.0]}} &
+        \makecell{80.7 \\ \footnotesize{[74.9, 86.5]}} &
+        \makecell{10.0 \\ \footnotesize{[5.8, 14.6]}} &
+        \makecell{0.497 \\ \footnotesize{[0.465, 0.529]}} &
+        171 \\
+    Additional Diagnosis &
+        \makecell{6.5 \\ \footnotesize{[2.6, 10.3]}} &
+        \makecell{86.4 \\ \footnotesize{[80.6, 91.6]}} &
+        \makecell{7.1 \\ \footnotesize{[3.2, 11.6]}} &
+        \makecell{0.497 \\ \footnotesize{[0.468, 0.526]}} &
+        155 \\
+    Threshold Error &
+        \makecell{11.5 \\ \footnotesize{[8.1, 15.3]}} &
+        \makecell{80.3 \\ \footnotesize{[75.6, 84.7]}} &
+        \makecell{8.2 \\ \footnotesize{[5.1, 11.5]}} &
+        \makecell{0.517 \\ \footnotesize{[0.492, 0.542]}} &
+        295 \\
+    Evidence Fabrication &
+        \makecell{8.5 \\ \footnotesize{[6.1, 11.2]}} &
+        \makecell{83.1 \\ \footnotesize{[79.7, 86.4]}} &
+        \makecell{8.3 \\ \footnotesize{[6.1, 10.8]}} &
+        \makecell{0.501 \\ \footnotesize{[0.483, 0.519]}} &
+        492 \\
+    Failure to seek info &
+        \makecell{20.4 \\ \footnotesize{[10.9, 31.2]}} &
+        \makecell{70.3 \\ \footnotesize{[59.4, 81.2]}} &
+        \makecell{9.4 \\ \footnotesize{[3.1, 17.2]}} &
+        \makecell{0.555 \\ \footnotesize{[0.492, 0.625]}} &
+        64 \\
+    \midrule
+
+    \multicolumn{6}{l}{\textbf{HealthBench Professional}} \\
+    \midrule
+    Under-Triage &
+        \makecell{10.2 \\ \footnotesize{[2.0, 18.4]}} &
+        \makecell{85.8 \\ \footnotesize{[75.5, 93.9]}} &
+        \makecell{4.0 \\ \footnotesize{[0.0, 10.2]}} &
+        \makecell{0.531 \\ \footnotesize{[0.480, 0.582]}} &
+        49 \\
+    Treatment Error &
+        \makecell{14.2 \\ \footnotesize{[9.5, 19.0]}} &
+        \makecell{81.1 \\ \footnotesize{[75.8, 86.3]}} &
+        \makecell{4.7 \\ \footnotesize{[1.9, 7.6]}} &
+        \makecell{0.547 \\ \footnotesize{[0.519, 0.576]}} &
+        211 \\
+    Missed Contraindication &
+        \makecell{23.3 \\ \footnotesize{[14.3, 33.8]}} &
+        \makecell{74.1 \\ \footnotesize{[63.6, 83.1]}} &
+        \makecell{2.6 \\ \footnotesize{[0.0, 6.5]}} &
+        \makecell{0.604 \\ \footnotesize{[0.552, 0.656]}} &
+        77 \\
+    Over-Triage &
+        \makecell{7.3 \\ \footnotesize{[0.0, 17.1]}} &
+        \makecell{87.8 \\ \footnotesize{[78.0, 97.6]}} &
+        \makecell{4.9 \\ \footnotesize{[0.0, 12.2]}} &
+        \makecell{0.512 \\ \footnotesize{[0.463, 0.561]}} &
+        41 \\
+    Omission &
+        \makecell{9.6 \\ \footnotesize{[5.1, 14.6]}} &
+        \makecell{87.9 \\ \footnotesize{[82.2, 93.0]}} &
+        \makecell{2.6 \\ \footnotesize{[0.6, 5.1]}} &
+        \makecell{0.535 \\ \footnotesize{[0.510, 0.564]}} &
+        157 \\
+    Wrong Diagnosis &
+        \makecell{12.1 \\ \footnotesize{[5.2, 20.7]}} &
+        \makecell{82.7 \\ \footnotesize{[72.4, 91.4]}} &
+        \makecell{5.2 \\ \footnotesize{[0.0, 12.1]}} &
+        \makecell{0.534 \\ \footnotesize{[0.483, 0.586]}} &
+        58 \\
+    Overgeneralisation &
+        \makecell{5.9 \\ \footnotesize{[2.7, 9.1]}} &
+        \makecell{90.4 \\ \footnotesize{[86.3, 94.1]}} &
+        \makecell{3.6 \\ \footnotesize{[1.4, 6.4]}} &
+        \makecell{0.511 \\ \footnotesize{[0.491, 0.532]}} &
+        219 \\
+    Dosage Error &
+        \makecell{3.6 \\ \footnotesize{[1.0, 6.7]}} &
+        \makecell{92.7 \\ \footnotesize{[89.1, 96.4]}} &
+        \makecell{3.6 \\ \footnotesize{[1.0, 6.2]}} &
+        \makecell{0.500 \\ \footnotesize{[0.482, 0.518]}} &
+        193 \\
+    Overconfidence &
+        \makecell{2.1 \\ \footnotesize{[0.0, 6.2]}} &
+        \makecell{93.7 \\ \footnotesize{[85.4, 100.0]}} &
+        \makecell{4.1 \\ \footnotesize{[0.0, 10.4]}} &
+        \makecell{0.490 \\ \footnotesize{[0.458, 0.521]}} &
+        48 \\
+    Additional Diagnosis &
+        \makecell{5.5 \\ \footnotesize{[0.0, 13.9]}} &
+        \makecell{88.9 \\ \footnotesize{[77.8, 97.2]}} &
+        \makecell{5.5 \\ \footnotesize{[0.0, 13.9]}} &
+        \makecell{0.500 \\ \footnotesize{[0.444, 0.556]}} &
+        36 \\
+    Threshold Error &
+        \makecell{5.8 \\ \footnotesize{[2.9, 9.1]}} &
+        \makecell{90.9 \\ \footnotesize{[87.0, 94.7]}} &
+        \makecell{3.4 \\ \footnotesize{[1.0, 6.2]}} &
+        \makecell{0.512 \\ \footnotesize{[0.493, 0.534]}} &
+        208 \\
+    Evidence Fabrication &
+        \makecell{4.6 \\ \footnotesize{[2.7, 6.8]}} &
+        \makecell{92.0 \\ \footnotesize{[89.3, 94.4]}} &
+        \makecell{3.4 \\ \footnotesize{[1.7, 5.3]}} &
+        \makecell{0.506 \\ \footnotesize{[0.493, 0.519]}} &
+        412 \\
+    Failure to seek info$^{*}$ &
+        \makecell{21.5 \\ \footnotesize{[0.0, 42.9]}} &
+        \makecell{78.5 \\ \footnotesize{[57.1, 100.0]}} &
+        \makecell{0.0 \\ \footnotesize{[0.0, 0.0]}} &
+        \makecell{0.607 \\ \footnotesize{[0.500, 0.714]}} &
+        14 \\
+    \caption{Win, tie, and loss rates and paired AUROC per error type, for each dataset, with 95\% confidence intervals in brackets. Rows are ordered by descending paired AUROC on HealthBench, with this order held fixed across all three datasets to ease cross-dataset comparison. \textit{Win} is the share of answer pairs where the rubric scored the correct answer higher than its error-injected counterpart; \textit{loss} is the reverse; \textit{tie} indicates equal scores. Paired AUROC scores ties as 0.5. $N$ is the number of (correct, error-injected) answer pairs evaluated. $^{*}$Rows with $N < 30$; estimates are unstable and should not be read into.}
+    \label{tab:win-tie-loss-auroc-per-error-all}\\
+\end{longtable}
+}

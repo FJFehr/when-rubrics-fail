@@ -576,6 +576,21 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
   }
   figure img { border-radius: 20px; }
 
+  /* The problem/pipeline diagrams (problem-image, method-image) are
+     exported with a transparent background -- fine against the light
+     theme's warm page background, but their black strokes/text nearly
+     disappear against the dark theme's near-black one. Paint white behind
+     just those two images in dark mode -- background only, no padding, so
+     the image's rendered box stays the exact same size as in light mode
+     and only its fill colour changes. White also matches the opaque
+     background already baked into the paper's other two figures (the bar
+     charts), so all four figures now read as the same white card in dark
+     mode. */
+  [data-theme="dark"] img[data-md-img="problem-image"],
+  [data-theme="dark"] img[data-md-img="method-image"] {
+    background: #FFFFFF;
+  }
+
   /* ---------- Figure placement (content.md "position: left/right") ----------
      Default (no position, or "center") is the centred layout set by each
      section's own figure rule above/below (.hero-result figure,
@@ -747,6 +762,16 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
      existing border tone rather than a new token -- adapts with the
      theme/dark mode automatically. */
   .md-table tbody tr:nth-child(even) { background: color-mix(in srgb, var(--color-bg), var(--color-border) 55%); }
+  /* In dark mode, the formula above lands only a few RGB points off
+     --color-surface (thead's own background, and the Key Takeaways cards'
+     background just below) -- close enough to read as an unintentional
+     mismatch rather than two deliberately different tones. Override to the
+     exact same token there so the stripe, the header row, and the takeaway
+     cards all share one "offset" surface colour. Light mode is left on the
+     formula above, where it lands on a clearly distinct, more visibly
+     "recessed" stripe rather than nearly (but not quite) matching
+     --color-surface's brighter "raised card" tone. */
+  [data-theme="dark"] .md-table tbody tr:nth-child(even) { background: var(--color-surface); }
   .md-table tbody tr:last-child td { border-bottom: none; }
   /* First column reads as the row's label/term -- a reasonable default
      for most tables (see tables.js). Wraps (see overflow-wrap above)

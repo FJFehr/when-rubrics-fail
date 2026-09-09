@@ -14,7 +14,7 @@ arxiv: null # TODO: add arXiv URL
 
 # Paper footnote: "Data / Code will be released upon publication" -- so
 # this is genuinely not available yet, not a guess.
-code: null # TODO: add GitHub URL once released
+code: https://github.com/lilysli/when-rubrics-fail 
 
 # The dataset release, hosted on Hugging Face. Paper footnote: "Data /
 # Code will be released upon publication" -- rendered as a "Dataset"

@@ -60,10 +60,6 @@ static/images/               Figures exported from the paper's own source
 static/logos/                oxford.svg, oxai_logo_final(_black).png,
                              github.svg, huggingface.png, arxiv.svg — see
                              static/logos/README.md for provenance.
-static/paper.pdf             The supplied preprint PDF. Not linked from a
-                             visible button (arXiv is the intended public
-                             link once live), but still referenced by
-                             citation_pdf_url and the <noscript> fallback.
 OXAI___Medical/               The paper's LaTeX source (main.tex, taxonomy.tex,
                              references.bib) and original figure/logo assets,
                              included for reference and as the source of

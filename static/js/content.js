@@ -41,6 +41,18 @@
  * today's behaviour -- floats the figure with body text wrapping beside
  * it for left/right). See README.md.
  *
+ * An image slot may also add an optional `dark: static/images/whatever.png`
+ * line -- a second image shown instead of the first when the dark theme is
+ * active, e.g. for a diagram exported twice (light/dark line-art) with a
+ * transparent background. Reuses the ".theme-only-light"/".theme-only-dark"
+ * CSS toggle (see index.html) already used for the OxAI logo: give the
+ * default <img data-md-img="slot-name"> a class="theme-only-light" and add
+ * a second <img data-md-img-dark="slot-name" class="theme-only-dark"> next
+ * to it in the same <figure> -- content.js finds it by that shared slot
+ * name and points it at the "dark:" path, with the same alt text. A slot
+ * with no "dark:" line, or no matching data-md-img-dark element, behaves
+ * exactly as before.
+ *
  * A second, page-level marker -- `<!-- section: name -->` -- controls the
  * order of the page's top-level sections themselves. It's recognised the
  * same way as a slot marker (so it also correctly ends the previous
@@ -162,16 +174,20 @@
     return { slots: slots, sectionOrder: sectionOrder };
   }
 
-  // Extracts the first Markdown image, ![alt](src), from a block, plus an
-  // optional "position: left|right|center" line (default "center").
+  // Extracts the first Markdown image, ![alt](src), from a block, plus two
+  // optional lines: "position: left|right|center" (default "center") and
+  // "dark: static/images/whatever.png" (a dark-theme replacement image;
+  // undefined if absent).
   function parseImage(raw) {
     const m = /!\[([^\]]*)\]\(([^)]+)\)/.exec(raw || "");
     if (!m) return null;
     const posMatch = /^position:\s*(left|right|center)\s*$/m.exec(raw || "");
+    const darkMatch = /^dark:\s*(\S+)\s*$/m.exec(raw || "");
     return {
       alt: m[1].trim(),
       src: m[2].trim(),
       position: posMatch ? posMatch[1] : "center",
+      dark: darkMatch ? darkMatch[1].trim() : undefined,
     };
   }
 
@@ -218,6 +234,19 @@
         figure.classList.remove("fig-left", "fig-right");
         if (img.position === "left" || img.position === "right") {
           figure.classList.add("fig-" + img.position);
+        }
+      }
+
+      // Optional "dark:" line -- points a sibling <img data-md-img-dark=
+      // "same-key"> (the ".theme-only-dark" half of the pair, see
+      // index.html) at the dark-theme replacement image. Same alt text as
+      // the light image; nothing to do if this slot has no "dark:" line or
+      // no matching element exists on the page.
+      if (img.dark) {
+        const darkEl = document.querySelector('[data-md-img-dark="' + key + '"]');
+        if (darkEl) {
+          darkEl.src = img.dark;
+          darkEl.alt = img.alt;
         }
       }
     });

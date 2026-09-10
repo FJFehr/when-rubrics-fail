@@ -247,22 +247,28 @@ page.
 
 ## How to replace figures
 
-Prefer editing `content.md` (see above) — it points each `<img>` at its
-file and holds the alt text, so most figure swaps need no HTML changes.
+Edit `content.md` (see above) — it points each `<img>` at its file and
+holds the alt text, so a figure swap needs no HTML changes. The pull
+figure and the pipeline diagram are each a light/dark theme-swapped
+pair: their `problem-image` / `method-image` slots set the light image
+with the usual `![alt](src)` line, plus the dark replacement with an
+optional `dark: static/images/whatever.png` line (see content.md's own
+header and static/js/content.js) — the only two slots on the page that
+use it today.
 
 The current figures were exported from the paper's own source assets in
 `OXAI___Medical/figures/` (the paper's LaTeX project, included in this repo
 for reference):
 
-- `figure-1-blind-spot.png` ← `figures/Problem/OXAI - Medical-Problem_v3.pdf`
-- `figure-3-pipeline.png` ← `figures/Pipeline/OXAI - Medical-Pipeline (6).pdf`
+- `figure-1-blind-spot.gif` / `figure-1-blind-spot-dark.gif` ← animated exports of `figures/Problem/OXAI - Medical-Problem_v3.svg` (light/dark line-art, transparent background)
+- `figure-3-pipeline.png` / `figure-3-pipeline-dark.png` ← exports of `figures/Pipeline/OXAI - Medical-Pipeline (6).pdf` (light/dark line-art, transparent background)
 - `figure-4-cross-benchmark.png` ← `figures/healthbench/results/Cross-Dataset-Comparison.png`
 - `figure-6-error-types.png` ← `figures/healthbench/results/HB-Bars.png`
 
 If a figure changes upstream, re-export from the updated source in
 `OXAI___Medical/figures/` (for a PDF source: `pdftoppm -png -r 400 <file>.pdf
 <out>` then downscale to ~1800px wide), drop the new file in
-`static/images/`, and update the matching `src:`/`alt:` lines in
+`static/images/`, and update the matching `src:`/`alt:`/`dark:` lines in
 `content.md`.
 
 `static/images/og-image.png` is a generated placeholder (title + authors on

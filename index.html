@@ -56,12 +56,18 @@ why:
     in the meta tags above and in citation.bib, since those must stay
     readable without JS. Update all of them by hand together.
 
-  - Figures live in static/images/ (figure-1-blind-spot.png,
-    figure-3-pipeline.png, figure-4-cross-benchmark.png,
+  - Figures live in static/images/ (figure-1-blind-spot.gif +
+    figure-1-blind-spot-dark.gif, figure-3-pipeline.png +
+    figure-3-pipeline-dark.png, figure-4-cross-benchmark.png,
     figure-6-error-types.png, og-image.png) -- exported from the paper's
     own source assets (see README.md). Replace with new exports at the
-    same filenames to update them, or change the <img src="..."> path if
-    you rename a file.
+    same filenames to update them, or change the src/dark: lines in
+    content.md's matching slot if you rename a file. The pull figure and
+    the pipeline diagram are each a light/dark theme-swapped pair --
+    content.md's problem-image and method-image slots each set both: the
+    "![alt](src)" line for the light theme, an optional "dark: ..." line
+    (see static/js/content.js) for the dark theme. The <img> markup below
+    only carries the no-JS fallback src/alt, same as every other figure.
 
   - static/logos/ holds oxford.svg (affiliation badge), github.svg
     (inlined with fill="currentColor" in main.js so it follows the Code
@@ -578,21 +584,6 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
   }
   figure img { border-radius: 20px; }
 
-  /* The problem/pipeline diagrams (problem-image, method-image) are
-     exported with a transparent background -- fine against the light
-     theme's warm page background, but their black strokes/text nearly
-     disappear against the dark theme's near-black one. Paint white behind
-     just those two images in dark mode -- background only, no padding, so
-     the image's rendered box stays the exact same size as in light mode
-     and only its fill colour changes. White also matches the opaque
-     background already baked into the paper's other two figures (the bar
-     charts), so all four figures now read as the same white card in dark
-     mode. */
-  [data-theme="dark"] img[data-md-img="problem-image"],
-  [data-theme="dark"] img[data-md-img="method-image"] {
-    background: #FFFFFF;
-  }
-
   /* ---------- Figure placement (content.md "position: left/right") ----------
      Default (no position, or "center") is the centred layout set by each
      section's own figure rule above/below (.hero-result figure,
@@ -972,10 +963,22 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
     <div class="wrap">
       <h2 id="problem-title" data-md="problem-title"></h2>
 
+      <!-- Animated, theme-swapped pair (transparent GIFs, one exported
+           with dark line-art for the light theme, one with light line-art
+           for the dark theme) -- both driven by content.md's problem-image
+           slot: its "![alt](src)" line sets the light image below, and its
+           optional "dark: ..." line (see static/js/content.js) sets the
+           dark one. Reuses the ".theme-only-light"/".theme-only-dark"
+           toggle already defined for the OxAI logo above -- no extra CSS
+           needed. The src/alt below are only the no-JS fallback, same as
+           every other data-md-img figure on this page. -->
       <figure>
-        <img data-md-img="problem-image"
-             src="static/images/figure-1-blind-spot.png"
-             alt="Diagram: a safe answer and a hallucinated answer both flow through the same rubric evaluation, the same LLM grader, and produce the same score, leaving clinician trust in question.">
+        <img data-md-img="problem-image" class="theme-only-light"
+             src="static/images/figure-1-blind-spot.gif"
+             alt="Animated diagram: a safe answer and a hallucinated answer both flow through the same rubric evaluation, the same LLM grader, and produce the same score, leaving clinician trust in question.">
+        <img data-md-img-dark="problem-image" class="theme-only-dark"
+             src="static/images/figure-1-blind-spot-dark.gif"
+             alt="Animated diagram: a safe answer and a hallucinated answer both flow through the same rubric evaluation, the same LLM grader, and produce the same score, leaving clinician trust in question.">
         <figcaption data-md="problem-caption"></figcaption>
       </figure>
     </div>
@@ -1015,9 +1018,15 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
       </div>
 
       <h3 id="method-pipeline-title" data-md="method-pipeline-title"></h3>
+      <!-- Theme-swapped pair, same "dark:" mechanism as the pull figure
+           above (driven by content.md's method-image slot) -- transparent
+           PNGs, light-theme and dark-theme line art, no backdrop needed. -->
       <figure>
-        <img data-md-img="method-image"
+        <img data-md-img="method-image" class="theme-only-light"
              src="static/images/figure-3-pipeline.png"
+             alt="Pipeline diagram: a question, answer, and taxonomy pass through two models that check applicability, then an error-generation model injects an error, followed by a programmatic and LLM quality check with a rejection loop back to error generation, and finally clinician review.">
+        <img data-md-img-dark="method-image" class="theme-only-dark"
+             src="static/images/figure-3-pipeline-dark.png"
              alt="Pipeline diagram: a question, answer, and taxonomy pass through two models that check applicability, then an error-generation model injects an error, followed by a programmatic and LLM quality check with a rejection loop back to error generation, and finally clinician review.">
         <figcaption data-md="method-figcaption"></figcaption>
       </figure>

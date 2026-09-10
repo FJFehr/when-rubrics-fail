@@ -37,6 +37,13 @@ where that figure sits — "center" (the default, today's layout for every
 figure) keeps it centred; "left"/"right" floats it with body text
 wrapping alongside.
 
+An image slot can also add an optional "dark: static/images/whatever.png"
+line — a second image shown instead of the first only when the dark theme
+is active (e.g. the same diagram exported twice, with light and dark
+line-art). Only works where index.html has wired up a matching dark <img>
+for that slot (today: problem-image, method-image) — see
+static/js/content.js.
+
 ORDER: the page follows this file. There is a second kind of marker,
 written like a slot marker but saying "section:" instead, before each
 top-level section. Move one of those markers — together with everything
@@ -87,7 +94,8 @@ Structured/tabular or logic-tied content does NOT live here:
 A safe insulin dose is contrasted with a hundredfold overdose hallucination. Both responses are scored by the same rubric and the same LLM grader. They receive indistinguishable scores. The difference between them is clinically critical. This is the blind spot this paper investigates.
 
 <!-- slot: problem-image -->
-![Diagram: a safe answer and a hallucinated answer both flow through the same rubric evaluation, the same LLM grader, and produce the same score, leaving clinician trust in question.](static/images/figure-1-blind-spot.png)
+![Animated diagram: a safe answer and a hallucinated answer both flow through the same rubric evaluation, the same LLM grader, and produce the same score, leaving clinician trust in question.](static/images/figure-1-blind-spot.gif)
+dark: static/images/figure-1-blind-spot-dark.gif
 
 <!-- slot: takeaways-title -->
 ## Key Takeaways
@@ -124,6 +132,7 @@ We develop a taxonomy of clinically relevant hallucination error types grounded 
 <!-- slot: method-image -->
 
 ![Pipeline diagram: a question, answer, and taxonomy pass through two models that check applicability, then an error-generation model injects an error, followed by a programmatic and LLM quality check with a rejection loop back to error generation, and finally clinician review.](static/images/figure-3-pipeline.png)
+dark: static/images/figure-3-pipeline-dark.png
 
 <!-- slot: method-figcaption -->
 

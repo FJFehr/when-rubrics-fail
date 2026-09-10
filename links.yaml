@@ -19,7 +19,7 @@ code: https://github.com/lilysli/when-rubrics-fail
 # The dataset release, hosted on Hugging Face. Paper footnote: "Data /
 # Code will be released upon publication" -- rendered as a "Dataset"
 # button (with the Hugging Face logo) rather than naming the platform.
-dataset: null # TODO: add Hugging Face dataset URL once released
+dataset: https://huggingface.co/datasets/JackJ3636/when-rubrics-fail 
 
 # Open Graph / Twitter card preview image path (1200x630). NOT auto-applied
 # to the <meta property="og:image">/<meta name="twitter:image"> tags in

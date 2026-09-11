@@ -207,4 +207,5 @@ We find that **retrieval-grounded checks can recover clinically meaningful error
  
 
 <!-- slot: footer-note -->
+Build your own pretty project pages 💅 [**paper-page**](https://github.com/FJFehr/paper-page) and gorgeous GIFs 🎬 [**gifit2me**](https://github.com/FJFehr/gifit2me).
 

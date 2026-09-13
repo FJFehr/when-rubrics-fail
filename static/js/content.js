@@ -73,12 +73,22 @@
       .replace(/>/g, "&gt;");
   }
 
-  // Inline formatting only -- used for headings and inside each paragraph.
-  function mdInline(text) {
-    let s = escapeHtml(text);
+  // Bold/italic/code -- assumes its input is already HTML-escaped.
+  function mdEmphasis(s) {
     s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
     s = s.replace(/\*(.+?)\*/g, "<em>$1</em>");
     s = s.replace(/`(.+?)`/g, "<code>$1</code>");
+    return s;
+  }
+
+  // Inline formatting only -- used for headings and inside each paragraph.
+  function mdInline(text) {
+    let s = escapeHtml(text);
+    // Links: [label](url) -- label can itself carry **bold**/*italic*/`code`.
+    s = s.replace(/\[(.+?)\]\((.+?)\)/g, function (_, label, url) {
+      return '<a href="' + url + '" target="_blank" rel="noopener">' + mdEmphasis(label) + "</a>";
+    });
+    s = mdEmphasis(s);
     return s;
   }
 

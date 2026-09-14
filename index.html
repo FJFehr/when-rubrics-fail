@@ -46,9 +46,10 @@ why:
     must be readable without it. If you change the title (static/js/theme.js),
     authors (authors.yaml), or add a DOI/arXiv ID/publication date, update
     BOTH the meta tags below AND those files so the rendered page and the
-    metadata agree. Search this file for "TODO" to find every place a
-    real value is still needed (canonical URL, OG image absolute URL,
-    citation_pdf_url once arXiv is live, citation_publication_date, DOI).
+    metadata agree. citation_publication_date and DOI are deliberately
+    left out while this is an unpublished preprint -- search this file
+    for that comment once the paper is formally published, and fill
+    them in then.
 
   - The <h1> paper title and the nav wordmark are rendered by main.js
     from static/js/theme.js (THEME.title), same as the rest of the page's
@@ -129,7 +130,7 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="When Rubrics Fail: Hallucinations Reveal Blind Spots in Medical AI Evaluation">
 <meta name="twitter:description" content="A clinician-validated study showing that rubric-based evaluation of medical AI often leaves clinically critical hallucinations undetected, and testing a preliminary retrieval-based complement.">
-<meta name="twitter:image" content="static/images/og-image.png">
+<meta name="twitter:image" content="https://fjfehr.github.io/when-rubrics-fail/static/images/og-image.png">
 
 <!-- Google Scholar / Highwire Press metadata -->
 <meta name="citation_title" content="When Rubrics Fail: Hallucinations Reveal Blind Spots in Medical AI Evaluation">
@@ -144,8 +145,7 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
      preprint and the PDF's own metadata does not state one -- do not
      invent one. Add it here once the paper is formally published. -->
 <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2609.12718">
-<!-- TODO: set once this page has a canonical deployed URL -->
-<!-- <meta name="citation_abstract_html_url" content="TODO"> -->
+<meta name="citation_abstract_html_url" content="https://fjfehr.github.io/when-rubrics-fail/">
 <meta name="citation_keywords" content="medical AI evaluation, hallucination detection, rubric-based grading, LLM-as-judge, clinical AI safety, retrieval-augmented factuality checking">
 
 <style>

@@ -221,10 +221,10 @@ anywhere:
 If you update the title (`static/js/theme.js`), authors (`authors.yaml`),
 or add a DOI/arXiv ID/publication date, update both the `<meta>` tags in
 `index.html` **and** those files so the visible page and the metadata stay
-in sync. Every open TODO is marked with an HTML comment — search
-`index.html` for `TODO` to find them all (canonical URL, absolute OG image
-URL, `citation_pdf_url` once arXiv is live, `citation_publication_date`,
-DOI). The `<h1>` paper title and the nav wordmark are rendered by
+in sync. `citation_publication_date` and DOI are deliberately left out
+while this is an unpublished preprint — search `index.html` for that
+comment once the paper is formally published, and fill them in then.
+The `<h1>` paper title and the nav wordmark are rendered by
 `main.js` from `static/js/theme.js` (`THEME.title`) — but are *also*
 duplicated in the meta tags above and in `citation.bib`'s `title` field,
 for the same "crawlers/BibTeX don't run JS" reason, so those still need
@@ -297,6 +297,7 @@ Any static file server works equally well (`npx serve`, etc.).
    branch", pick the branch (e.g. `main`) and the root (`/`) folder.
 3. GitHub Pages serves `index.html` at
    `https://<user>.github.io/<repo>/` (or your custom domain).
-4. Once you have the deployed URL, fill in the `TODO`-marked canonical /
-   `og:url` / `citation_abstract_html_url` values in `index.html`'s
-   `<head>`.
+4. The canonical / `og:url` / `citation_abstract_html_url` values in
+   `index.html`'s `<head>` already point at this page's deployed URL
+   (`https://fjfehr.github.io/when-rubrics-fail/`); update them by hand if
+   you deploy to a different URL.

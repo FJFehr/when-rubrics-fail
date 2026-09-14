@@ -10,7 +10,7 @@
 # Set to the arXiv abstract page once the preprint is posted, e.g.
 # "https://arxiv.org/abs/xxxx.xxxxx". Left null -> button shows only its
 # logo, disabled, and is not clickable.
-arxiv: null # TODO: add arXiv URL
+arxiv: https://arxiv.org/abs/2609.12718
 
 # Paper footnote: "Data / Code will be released upon publication" -- so
 # this is genuinely not available yet, not a guess.
